@@ -1,18 +1,20 @@
 class Solution {
 public:
     int eliminateMaximum(vector<int>& dist, vector<int>& speed) {
-        vector<double> arrival;
-        for (int i = 0; i < dist.size(); i++) {
-            arrival.push_back((double) dist[i] / speed[i]);
+        vector<double> v;
+        for(int i=0;i<dist.size();i++){
+            v.push_back((double) dist[i]/speed[i]);
         }
-        sort(arrival.begin(), arrival.end());
-        int ans = 0;
-        for (int i = 0; i < arrival.size(); i++) {
-            if (arrival[i] <= i) {
+        sort(v.begin(),v.end());
+        int res= 0;
+        for(int i=0;i<v.size();i++){
+            if(i>=v[i]){
                 break;
             }
-            ans++;
+            res++;
         }
-        return ans;
+        return res;
+        
+        
     }
 };
