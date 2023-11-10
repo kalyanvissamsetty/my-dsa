@@ -1,30 +1,34 @@
 class Solution {
 public:
-    void dfs(unordered_map<int,vector<int>>& mp,int cur,set<int>& visited,vector<int>& ans)
-    {
-        if(visited.find(cur)!=visited.end()) return;
-        ans.push_back(cur);
-        visited.insert(cur);
-        for(int x:mp[cur]){
-            dfs(mp,x,visited,ans);
+    void dfs(vector<int> &res, unordered_map<int,vector<int>> &mp,set<int> &s,int h){
+        if(s.find(h)!=s.end()){
+            return;
+        }
+        res.push_back(h);
+        s.insert(h);
+        for(auto i:mp[h]){
+            dfs(res,mp,s,i);
         }
     }
     vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
-        unordered_map<int,vector<int>>mp;
-        for(auto arr:adjacentPairs){
-            mp[arr[0]].push_back(arr[1]);
-            mp[arr[1]].push_back(arr[0]);
+        unordered_map<int,vector<int>> mp;
+        for(auto i:adjacentPairs){
+            mp[i[0]].push_back(i[1]);
+            mp[i[1]].push_back(i[0]);
         }
-        int head=0;
-        for(auto x:mp){
-            if(x.second.size()==1){
-                head=x.first;
+        int start;
+        for(auto i: mp){
+            if(i.second.size() == 1){
+                start = i.first;
                 break;
             }
+            
         }
-        set<int>visited;
-        vector<int> ans;
-        dfs(mp,head,visited,ans);
-        return ans;
+        vector<int> res;
+        set<int> s;
+        dfs(res,mp,s,start);
+        return res;
     }
+    
+    
 };
